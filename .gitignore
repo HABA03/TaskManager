@@ -1,0 +1,25 @@
+# Build folders
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+
+# VS Code settings
+.vscode/
+
+# Logs
+*.log
+
+# Database files
+*.mdf
+*.ldf
+
+# Node modules (para cuando hagamos el frontend)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
