@@ -5,7 +5,7 @@ using TM.Application.DTO.TaskItem.Update;
 using TM.Domain.Entity;
 using TM.Domain.Interface;
 
-namespace TM.Application.UseCase.TaskItemUseCases.UpdateTaskItemUseCase;
+namespace TM.Application.UseCase.TaskItemUseCases;
 
 public class UpdateTaskItemUseCase : IRequestHandler<UpdateTaskRequest, UpdateTaskResponse>
 {

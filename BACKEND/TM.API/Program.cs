@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using TM.API.AutoMapperProfile.MapperProfile;
 using TM.API.DependencyContainer.RegisterService;
-using TM.Application.UseCase.TaskItemUseCases.CreateTaskItemUseCase;
+using TM.Application.UseCase.TaskItemUseCases;
 using TM.Infrastructure.Context.TMContext;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +16,8 @@ builder.Services.AddAutoMapper(options =>
 {
     options.AddProfile(typeof(MapperProfile));
 });
+
+builder.Services.AddControllers();
 
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
@@ -38,6 +40,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.MapControllers();
 
 app.UseHttpsRedirection();
 

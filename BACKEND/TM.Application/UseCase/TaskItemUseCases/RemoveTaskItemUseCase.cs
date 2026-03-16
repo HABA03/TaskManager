@@ -4,7 +4,7 @@ using MediatR;
 using TM.Application.DTO.TaskItem.Remove;
 using TM.Domain.Interface;
 
-namespace TM.Application.UseCase.TaskItemUseCases.RemoveTaskItemUseCase;
+namespace TM.Application.UseCase.TaskItemUseCases;
 
 public class RemoveTaskItemUseCase : IRequestHandler<RemoveTaskRequest, RemoveTaskResponse>
 {

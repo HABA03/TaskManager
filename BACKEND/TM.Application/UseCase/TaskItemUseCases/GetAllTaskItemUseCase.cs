@@ -1,7 +1,6 @@
 using AutoMapper;
 using MediatR;
 using TM.Application.DTO.TaskItem.GetAll;
-using TM.Application.DTO.TaskItem.GetById;
 using TM.Domain.Interface;
 
 namespace TM.Application.UseCase.TaskItemUseCases;

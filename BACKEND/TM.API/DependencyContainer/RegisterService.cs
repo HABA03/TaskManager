@@ -3,7 +3,6 @@ using TM.Application.DTO.TaskItem.Create;
 using TM.Application.DTO.TaskItem.GetById;
 using TM.Application.DTO.TaskItem.Remove;
 using TM.Application.DTO.TaskItem.Update;
-using TM.Application.FluentValidation.TaskItemValidation;
 using TM.Domain.Interface;
 using TM.Infrastructure.Repositories.TaskItemRepository;
 
@@ -15,9 +14,9 @@ public class RegisterService
     {
         services.AddScoped<ITaskItemRepository, TaskItemRepository>();
         
-        services.AddScoped<IValidator<CreateTaskRequest>, CreateTaskRequestValidation>();
-        services.AddScoped<IValidator<UpdateTaskRequest>, UpdateTaskRequestValidation>();
-        services.AddScoped<IValidator<GetTaskByIdRequest>, GetTaskByIdRequestValidation>();
-        services.AddScoped<IValidator<RemoveTaskRequest>, RemoveTaskRequestValidation>();
+        services.AddScoped<IValidator<CreateTaskRequest>, TM.Application.FluentValidation.TaskItemValidation.CreateTaskRequestValidation>(); 
+        services.AddScoped<IValidator<UpdateTaskRequest>, TM.Application.FluentValidation.TaskItemValidation.UpdateTaskRequestValidation>();
+        services.AddScoped<IValidator<GetTaskByIdRequest>, TM.Application.FluentValidation.TaskItemValidation.GetTaskByIdRequestValidation>();
+        services.AddScoped<IValidator<RemoveTaskRequest>, TM.Application.FluentValidation.TaskItemValidation.RemoveTaskRequestValidation>();
     }
 }
