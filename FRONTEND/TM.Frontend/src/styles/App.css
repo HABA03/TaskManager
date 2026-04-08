@@ -1,0 +1,37 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+.app-content-container{
+  width: 75%;
+  display: flex;
+  margin: 0 auto;
+  margin-top: 4rem;
+}
+
+.app-part1-content{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-part1-h1, .app-part1-p{
+  margin: 0;
+}
+
+.app-part1-info{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Cards */
+.app-cards-container{
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 4rem;
+}

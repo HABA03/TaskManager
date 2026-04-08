@@ -17,7 +17,7 @@ public class TMContext : DbContext
     {
         if(!optionsBuilder.IsConfigured)
         {
-            var connection = "";
+            var connection = "Server=localhost;Database=TMDB;Trusted_Connection=True;TrustServerCertificate=True;";
             optionsBuilder.UseSqlServer(connection);
         }
     }

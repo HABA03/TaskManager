@@ -26,6 +26,6 @@ public class GetTaskItemByIdUseCase : IRequestHandler<GetTaskByIdRequest, GetTas
         if(!validationResponse.IsValid)
             throw new Exception(string.Join(",", validationResponse.Errors.Select(e => e.ErrorMessage)));
 
-        return _mapper.Map<GetTaskByIdResponse>(_repository.GetTaskItemById(request.Id, cancellationToken));
+        return _mapper.Map<GetTaskByIdResponse>( await _repository.GetTaskItemById(request.Id, cancellationToken));
     }
 }

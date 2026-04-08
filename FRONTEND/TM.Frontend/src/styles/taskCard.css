@@ -1,0 +1,38 @@
+.taskcard-container{
+    width: 100%;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    border: 2px solid #7772;
+}
+
+.taskcard-information{
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.card-info-name{
+    font-weight: 600;
+}
+
+.card-aditional-info{
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+}
+
+.card-active-status, .card-pending-status{
+    border-radius: 5rem;
+    padding: 0.3rem 0.8rem;
+    color: #fff;
+}
+
+.taskcard-buttons{
+    display: flex;
+    gap: 1rem;
+}

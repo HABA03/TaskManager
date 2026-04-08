@@ -7,22 +7,42 @@ using TM.Infrastructure.Context.TMContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<TMContext>(options =>
+// Only register DbContext in non-testing environments
+if (!builder.Environment.IsEnvironment("Testing"))
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+    builder.Services.AddDbContext<TMContext>(options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    });
+}
 
 builder.Services.AddAutoMapper(options =>
 {
     options.AddProfile(typeof(MapperProfile));
 });
 
-builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("corspolicy", opt =>
+    {
+        opt.AllowAnyMethod();
+        opt.AllowAnyHeader();
+        opt.WithOrigins("http://localhost:5173");
+    });
+});
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+});
 
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
-    options.SerializerOptions.PropertyNamingPolicy = null;
     options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    options.SerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
 });
 
 RegisterService.RegisterServices(builder.Services);
@@ -41,9 +61,12 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseCors("corspolicy");
+
 app.MapControllers();
 
 app.UseHttpsRedirection();
 
-
 app.Run();
+
+public partial class Program { }

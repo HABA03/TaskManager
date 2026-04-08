@@ -1,0 +1,51 @@
+version: '1.0'
+
+services: 
+
+  fronted:
+    container_name: tm_frontend
+    build: 
+      context: ./FRONTEND/TM.Frontend
+      dockerfile: dockerfile.yml 
+    ports:
+      - "80:80"
+    networks:
+      - tm_network
+    depends_on:
+      - backend
+    restart: always
+
+  backend: 
+    container_name: tm_backend
+    build:
+      context: ./BACKEND
+      dockerfile: dockerfile.yml
+    ports:
+      - "5000:80"
+    networks: 
+      - tm_network
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Production"
+      ConnectionStrings_DefaultConnection: "Server=database;Database=tm_db;User=sa;Password=${SA_PASSWORD};Trusted_Connection=true;TrustServerCertificate=true;"
+    depends_on:
+      - database
+    restart: always
+
+  database: 
+    container_name: tm_database
+    image: mcr.mnicrosoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "${SA_pASSWORD}"
+    volumes:
+      tm_sql_data:/var/opt/mssql
+    networks:
+      - tm_network
+    restart: always
+
+volumes:
+  tm_sql_data:
+
+networks:
+  tm_network:
+    driver: bridge

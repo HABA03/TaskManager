@@ -20,6 +20,8 @@ public class TaskItemRepository : ITaskItemRepository
         bool response = false;
         if(taskItem != null)
         {
+            taskItem.CreatedDate = DateTime.UtcNow;
+            taskItem.UpdatedDate = DateTime.UtcNow;
             await _context.TaskItem.AddAsync(taskItem, cancellationToken);
             response = await _context.SaveChangesAsync(cancellationToken) > 0;   
         }

@@ -1,0 +1,18 @@
+.button-component{
+    text-align: center;
+    border-radius: 0.4rem;
+    padding: 0.6rem 1rem;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.button-component:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 6px 10px #5554;
+    cursor: pointer;
+}
+
+.button-p{
+    font-size: 0.8rem;
+    font-weight: 500;
+}
