@@ -26,19 +26,19 @@ services:
       - tm_network
     environment:
       ASPNETCORE_ENVIRONMENT: "Production"
-      ConnectionStrings_DefaultConnection: "Server=database;Database=tm_db;User=sa;Password=${SA_PASSWORD};Trusted_Connection=true;TrustServerCertificate=true;"
+      ConnectionStrings_DefaultConnection: "Server=database;Database=tm_db;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=true;"
     depends_on:
       - database
     restart: always
 
   database: 
     container_name: tm_database
-    image: mcr.mnicrosoft.com/mssql/server:2022-latest
+    image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "${SA_pASSWORD}"
+      SA_PASSWORD: "${SA_PASSWORD}"
     volumes:
-      tm_sql_data:/var/opt/mssql
+      - tm_sql_data:/var/opt/mssql
     networks:
       - tm_network
     restart: always

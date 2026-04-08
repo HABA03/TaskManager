@@ -10,7 +10,6 @@ import Modal from "../components/modal";
 function App(){
     const [tasks, setTasks] = useState<TaskItem[]>([]);
     const [createModal, setCreateModal] = useState<boolean>(false);
-    const [updateModal, setUpdateModal] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
 
     const getTasks = async () => {
