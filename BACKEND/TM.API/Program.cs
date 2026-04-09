@@ -13,7 +13,16 @@ if (!builder.Environment.IsEnvironment("Testing"))
 {
     builder.Services.AddDbContext<TMContext>(options =>
     {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+        options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: TimeSpan.FromSeconds(10),
+                errorNumbersToAdd: null
+            );
+        });
     });
 }
 
@@ -60,7 +69,15 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<TMContext>();
-    db.Database.Migrate();
+
+    try
+    {
+        db.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Error applying migrations: " + ex.Message);
+    }
 }
 
 if (app.Environment.IsDevelopment())

@@ -17,7 +17,7 @@ public class TMContext : DbContext
     {
         if(!optionsBuilder.IsConfigured)
         {
-            var connection = "Server=database;Database=tm_db;User Id=sa;Password=TuPassword123!;TrustServerCertificate=true;";
+            var connection = "Server=database;Database=tm_db;User Id=sa;Password=TuPassword123!;Encrypt=True;TrustServerCertificate=true;";
             optionsBuilder.UseSqlServer(connection);
         }
     }
