@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TM.Infrastructure.Context.TMContext;
 
@@ -11,9 +12,11 @@ using TM.Infrastructure.Context.TMContext;
 namespace TM.Infrastructure.Migrations
 {
     [DbContext(typeof(TMContext))]
-    partial class TMContextModelSnapshot : ModelSnapshot
+    [Migration("20260409204225_Cambios en entidad")]
+    partial class Cambiosenentidad
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
