@@ -72,26 +72,40 @@ using (var scope = app.Services.CreateScope())
     var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
     var connectionString = config.GetConnectionString("DefaultConnection");
 
+    // Esperar a que SQL Server esté listo
+    var retries = 10;
+    while (retries > 0)
+    {
+        try
+        {
+            var masterConnection = connectionString.Replace("Database=tm_db", "Database=master");
+            using var connection = new SqlConnection(masterConnection);
+            connection.Open();
+            break; // Conexión exitosa, salir del loop
+        }
+        catch
+        {
+            retries--;
+            Console.WriteLine($"SQL Server no está listo. Reintentando en 5s... ({retries} intentos restantes)");
+            Thread.Sleep(5000);
+        }
+    }
+
     try
     {
-        // 🔹 Crear DB si no existe
         var masterConnection = connectionString.Replace("Database=tm_db", "Database=master");
-
         using (var connection = new SqlConnection(masterConnection))
         {
             connection.Open();
-
             var command = connection.CreateCommand();
             command.CommandText = @"
                 IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'tm_db')
                 BEGIN
                     CREATE DATABASE tm_db;
                 END";
-
             command.ExecuteNonQuery();
         }
 
-        // 🔹 Aplicar migraciones
         var db = scope.ServiceProvider.GetRequiredService<TMContext>();
         db.Database.Migrate();
     }
