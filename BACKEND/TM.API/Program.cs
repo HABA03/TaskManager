@@ -60,12 +60,6 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<TMContext>();
-    db.Database.EnsureCreated();
-}
-
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<TMContext>();
     db.Database.Migrate();
 }
 
