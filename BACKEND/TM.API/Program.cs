@@ -5,6 +5,7 @@ using TM.API.AutoMapperProfile.MapperProfile;
 using TM.API.DependencyContainer.RegisterService;
 using TM.Application.UseCase.TaskItemUseCases;
 using TM.Infrastructure.Context.TMContext;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,10 +69,30 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<TMContext>();
+    var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+    var connectionString = config.GetConnectionString("DefaultConnection");
 
     try
     {
+        // 🔹 Crear DB si no existe
+        var masterConnection = connectionString.Replace("Database=tm_db", "Database=master");
+
+        using (var connection = new SqlConnection(masterConnection))
+        {
+            connection.Open();
+
+            var command = connection.CreateCommand();
+            command.CommandText = @"
+                IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'tm_db')
+                BEGIN
+                    CREATE DATABASE tm_db;
+                END";
+
+            command.ExecuteNonQuery();
+        }
+
+        // 🔹 Aplicar migraciones
+        var db = scope.ServiceProvider.GetRequiredService<TMContext>();
         db.Database.Migrate();
     }
     catch (Exception ex)
