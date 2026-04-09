@@ -25,6 +25,7 @@ services:
       - tm_network
     environment:
       ASPNETCORE_ENVIRONMENT: "Production"
+      ASPNETCORE_URLS: "http://+:80"
       ConnectionStrings_DefaultConnection: "Server=database;Database=tm_db;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=true;"
     depends_on:
       - database
