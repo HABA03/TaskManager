@@ -28,7 +28,7 @@ builder.Services.AddCors(options =>
     {
         opt.AllowAnyMethod();
         opt.AllowAnyHeader();
-        opt.WithOrigins("http://185.215.166.32");
+        opt.AllowAnyOrigin();
     });
 });
 
