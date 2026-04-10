@@ -38,7 +38,7 @@ jobs:
       - name: Build Frontend Image
         run: |
           docker build \
-          -f dockerfile.yml \
+          -f ./FRONTEND/TM.Frontend/dockerfile.yml \
           -t $DOCKER_USERNAME/tm_frontend:latest \
           ./FRONTEND
 
