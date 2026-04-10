@@ -67,14 +67,12 @@ jobs:
             docker pull $DOCKER_USERNAME/tm_backend:latest
             docker pull $DOCKER_USERNAME/tm_frontend:latest
           
-            echo "🧹 Cleaning old containers..."
+            echo "🧹 Stopping containers..."
             docker compose down
           
             echo "🧹 Removing old images..."
-            docker image rm $DOCKER_USERNAME/tm_backend:latest || true
-            docker image rm $DOCKER_USERNAME/tm_frontend:latest || true
+            docker rmi $DOCKER_USERNAME/tm_backend:latest || true
+            docker rmi $DOCKER_USERNAME/tm_frontend:latest || true
           
             echo "📦 Starting containers..."
-            docker compose up -d
-          
-            echo "✅ Deployment finished!"
+            docker compose up -d --force-recreate
