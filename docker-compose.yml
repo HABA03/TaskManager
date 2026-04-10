@@ -1,11 +1,8 @@
-
 services: 
 
-  fronted:
+  frontend:
     container_name: tm_frontend
-    build: 
-      context: ./FRONTEND/TM.Frontend
-      dockerfile: dockerfile.yml 
+    image: haba63/tm_frontend:latest
     ports:
       - "80:80"
     networks:
@@ -16,9 +13,7 @@ services:
 
   backend: 
     container_name: tm_backend
-    build:
-      context: ./BACKEND
-      dockerfile: dockerfile.yml
+    image: haba63/tm_backend:latest
     ports:
       - "5000:80"
     networks: 
