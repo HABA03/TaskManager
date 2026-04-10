@@ -40,7 +40,7 @@ jobs:
           docker build \
           -f ./FRONTEND/TM.Frontend/dockerfile.yml \
           -t $DOCKER_USERNAME/tm_frontend:latest \
-          ./FRONTEND
+          ./FRONTEND/TM.Frontend
 
       - name: Push Frontend Image
         run: docker push $DOCKER_USERNAME/tm_frontend:latest
