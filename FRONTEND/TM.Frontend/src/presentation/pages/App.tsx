@@ -33,7 +33,7 @@ function App(){
             <div className="app-content-container">
                 <div className="app-part1-content">
                     <div className="app-part1-info">
-                        <h1 className="app-part1-h1">Tasks</h1>
+                        <h1 className="app-part1-h1">Task Manager</h1>
                         <p className="app-part1-p">Manage your projects and daily responsibilities.</p>
                     </div>
                     <Button text="Create New Task" onClick={() => setCreateModal(true)} color="#fff" background="#06b6a4" icon={<i className="bi bi-plus"></i>} />
