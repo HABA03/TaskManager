@@ -27,7 +27,7 @@ jobs:
       - name: Build Backend Image
         run: |
           docker build \
-          -f dockerfile.yml \
+          -f ./BACKEND/dockerfile.yml \
           -t $DOCKER_USERNAME/tm_backend:latest \
           ./BACKEND
 
